@@ -13,6 +13,7 @@
 		77F66D322600053B00120F3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77F66D302600053B00120F3E /* Main.storyboard */; };
 		77F66D342600053E00120F3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77F66D332600053E00120F3E /* Assets.xcassets */; };
 		77F66D372600053E00120F3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77F66D352600053E00120F3E /* LaunchScreen.storyboard */; };
+		77F66D402600798600120F3E /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F66D3F2600798600120F3E /* LibraryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		77F66D332600053E00120F3E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77F66D362600053E00120F3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77F66D382600053E00120F3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77F66D3F2600798600120F3E /* LibraryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				77F66D2A2600053B00120F3E /* AppDelegate.swift */,
 				77F66D2C2600053B00120F3E /* SceneDelegate.swift */,
 				77F66D2E2600053B00120F3E /* ViewController.swift */,
+				77F66D3F2600798600120F3E /* LibraryCell.swift */,
 				77F66D302600053B00120F3E /* Main.storyboard */,
 				77F66D332600053E00120F3E /* Assets.xcassets */,
 				77F66D352600053E00120F3E /* LaunchScreen.storyboard */,
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77F66D2F2600053B00120F3E /* ViewController.swift in Sources */,
+				77F66D402600798600120F3E /* LibraryCell.swift in Sources */,
 				77F66D2B2600053B00120F3E /* AppDelegate.swift in Sources */,
 				77F66D2D2600053B00120F3E /* SceneDelegate.swift in Sources */,
 			);
