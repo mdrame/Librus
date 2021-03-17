@@ -7,16 +7,17 @@
 
 import UIKit
 
-// https://api.yelp.com/v3/businesses/search
+
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-   
+    var networking: Networking = Networking()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.addSubview(libraryTableView)
         libraryTableviewConstrain()
+        networking.getLibrary(lng: 10, lat: 20)
     }
     
     lazy var libraryTableView: UITableView = {
@@ -45,6 +46,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let libraryCell = tableView.dequeueReusableCell(withIdentifier: LibraryCell.cellIdenfier, for: indexPath) as? LibraryCell
+        libraryCell!.libraryNameLabel.text = "Newark Library"
+        libraryCell!.distanceLabel.text = "0.7 mils"
+        libraryCell!.libraryAddressLabel.text = "547 Spring Street, Newark NJ, 07108"
         return libraryCell!
     }
     
