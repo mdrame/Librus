@@ -13,15 +13,15 @@ import CoreLocation
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     private var networking: Networking = Networking()
     let locationManager = CLLocationManager()
+    var long: Double = -74.19479370117189
+    var lati: Double = 40.7375024965684
     override func viewDidLoad() {
         super.viewDidLoad()
         checkLocationService()
         // Do any additional setup after loading the view.
         view.addSubview(libraryTableView)
         libraryTableviewConstrain()
-        
-        //        networking.getLibrary(lng: 10, lat: 20)
-        
+        networking.getLibrary(lng: long, lat: lati)
     }
     
     private  lazy var libraryTableView: UITableView = {
@@ -51,9 +51,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let libraryCell = tableView.dequeueReusableCell(withIdentifier: LibraryCell.cellIdenfier, for: indexPath) as? LibraryCell
         libraryCell?.selectionStyle = .none
-        libraryCell!.libraryNameLabel.text = "Newark Library"
-        libraryCell!.distanceLabel.text = "0.7 mils"
-        libraryCell!.libraryAddressLabel.text = "547 Spring Street, Newark NJ, 07108"
+        libraryCell!.configCellViews(library: "Newark Library", distance: "0.7 mils", address: "547 Spring Street, Newark NJ, 07108")
         return libraryCell!
     }
     
@@ -69,10 +67,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let goToMap = UIContextualAction(style: .normal, title: "GO") { (action, view, nil) in
-            print("Go to Google map")
+        let goToMap = UIContextualAction(style: .destructive, title: "") { (action, view, nil) in
+            print("Go to Google Map")
         }
-        return UISwipeActionsConfiguration(actions: [goToMap])
+        
+        goToMap.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        goToMap.image = #imageLiteral(resourceName: "swipe-right.png")
+        let confug = UISwipeActionsConfiguration(actions: [goToMap])
+        confug.performsFirstActionWithFullSwipe = true
+        return confug
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -92,6 +95,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         default:
             print("This shouldn't happen!")
         }
+        guard let first = locations.first else { return }
+        long = first.coordinate.longitude
+        lati = first.coordinate.latitude
+        print("📍\(long), \(lati)")
     }
     
     //
@@ -113,25 +120,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
-    //    func checkLocationAuthorization(_ manager: CLLocationManager) {
-    //        switch manager.authorizationStatus {
-    //        case .authorizedAlways, .authorizedWhenInUse:
-    //            print("Allowed")
-    //        case .denied, .notDetermined, .restricted:
-    //            print("No access to location service")
-    //        default:
-    //            print("Unhandled case")
-    //        }
-    //        switch manager.accuracyAuthorization {
-    //        case .reducedAccuracy:
-    //            print("Low access")
-    //        case .fullAccuracy:
-    //            print("Full access")
-    //        default:
-    //            print("This shouldn't happen!")
-    //        }
-    //    }
-    
+
     
     
     

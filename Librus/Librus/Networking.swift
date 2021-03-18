@@ -15,8 +15,9 @@ class Networking {
         "Authorization": "Bearer o--wWs_IsfbVwOB-YYhhehTTFbSzOXMXJ3VuQCHhAGadHu2I3FTrrLvR3PBmtKL-AKswnlkkZOG9kFFN0br1DX1h6BebnLVWiljzJskfFOPjqkk1U8q_bYDwgF4NX3Yx"
     ]
     private var clientID: String =  "iU17mjNZTkTOJFiOozBnVA"
-    public func getLibrary(lng: Int, lat: Int) {
-        let url = URL(string: "https://api.yelp.com/v3/businesses/search?term=library&location=Newark")!
+    public func getLibrary(lng: Double, lat: Double) {
+        let url = URL(string: "https://api.yelp.com/v3/businesses/search?term=library&latitude=\(lat)&longitude=\(lng)")!
+        print("url➡️ \(url)")
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.allHTTPHeaderFields =  headers

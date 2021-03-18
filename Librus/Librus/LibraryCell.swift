@@ -69,4 +69,10 @@ public class LibraryCell: UITableViewCell {
         ])
     }
     
+    func configCellViews(library name: String, distance points: String, address location: String) {
+        libraryNameLabel.text = name
+        distanceLabel.text = points
+        libraryAddressLabel.text = location
+    }
+    
 }
