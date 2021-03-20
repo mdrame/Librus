@@ -12,7 +12,11 @@ public class LibraryCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         // Initialization code
-        contentView.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+        contentView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+        contentView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        contentView.layer.shadowOpacity = 0.9
+        contentView.layer.shadowOffset = .zero
+        contentView.layer.shadowRadius = 1
         contentView.layer.cornerRadius = 10
         contentView.addSubview(libraryNameLabel)
         contentView.addSubview(distanceLabel)
@@ -34,6 +38,7 @@ public class LibraryCell: UITableViewCell {
         taskLabelLabel.text = "0.4 mils"
         taskLabelLabel.translatesAutoresizingMaskIntoConstraints = false
         taskLabelLabel.font = UIFont(name: "Arial", size: 30)
+        taskLabelLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         return taskLabelLabel
     }()
     
@@ -42,6 +47,7 @@ public class LibraryCell: UITableViewCell {
         distanceLabel.text = "0.9 mils"
         distanceLabel.translatesAutoresizingMaskIntoConstraints = false
         distanceLabel.font = UIFont(name: "Arial", size: 19)
+        distanceLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         return distanceLabel
     }()
     
@@ -50,6 +56,7 @@ public class LibraryCell: UITableViewCell {
         libraryAddressLabel.text = "20.5 mils"
         libraryAddressLabel.translatesAutoresizingMaskIntoConstraints = false
         libraryAddressLabel.font = UIFont(name: "Arial", size: 15)
+        libraryAddressLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         return libraryAddressLabel
     }()
     
@@ -69,10 +76,10 @@ public class LibraryCell: UITableViewCell {
         ])
     }
     
-    func configCellViews(library name: String, distance points: String, address location: String) {
-        libraryNameLabel.text = name
-        distanceLabel.text = points
-        libraryAddressLabel.text = location
+    func configCellViews(with data: Business) {
+        libraryNameLabel.text = data.name
+        distanceLabel.text = String(data.distance)
+        libraryAddressLabel.text = data.location.address1
     }
     
 }

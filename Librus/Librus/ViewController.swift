@@ -12,16 +12,34 @@ import CoreLocation
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     private var networking: Networking = Networking()
-    let locationManager = CLLocationManager()
-    var long: Double = -74.19479370117189
-    var lati: Double = 40.7375024965684
+    private let locationManager = CLLocationManager()
+    private var listOFLibraries: [Business] = []
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         checkLocationService()
-        // Do any additional setup after loading the view.
         view.addSubview(libraryTableView)
         libraryTableviewConstrain()
-        networking.getLibrary(lng: long, lat: lati)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let long = Double((locationManager.location?.coordinate.longitude)!)
+        let lati = Double((locationManager.location?.coordinate.latitude)!)
+        print(" 📍 - Long: \(long), 🗺 - Lat: \(lati)")
+        networking.getLibrary(lng: long, lat: lati) { [weak self] (welcomObjectData) in
+            DispatchQueue.main.async {
+//                print(" WelcomeDataModel: \(welcomObjectData)")
+                guard let wd = welcomObjectData else  {
+                    print("No Data ")
+                    return }
+                self?.listOFLibraries = wd
+                print("Array of business: \(self?.listOFLibraries[0].name)")
+                self!.libraryTableView.reloadData()
+            }
+           
+        }
+        
     }
     
     private  lazy var libraryTableView: UITableView = {
@@ -30,6 +48,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         libraryTableView.register(LibraryCell.self, forCellReuseIdentifier: LibraryCell.cellIdenfier)
         libraryTableView.separatorStyle = .none
         //        libraryTableView.isSpringLoaded = true
+        //        libraryTableView.backgroundColor = #colorLiteral(red: 0.1318426728, green: 0.1439217925, blue: 0.158605963, alpha: 1)
         return libraryTableView
     }()
     
@@ -45,13 +64,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return listOFLibraries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let libraryCell = tableView.dequeueReusableCell(withIdentifier: LibraryCell.cellIdenfier, for: indexPath) as? LibraryCell
         libraryCell?.selectionStyle = .none
-        libraryCell!.configCellViews(library: "Newark Library", distance: "0.7 mils", address: "547 Spring Street, Newark NJ, 07108")
+        let business = listOFLibraries[indexPath.row]
+       
+        DispatchQueue.main.async {
+            libraryCell?.configCellViews(with: business )
+        }
         return libraryCell!
     }
     
@@ -62,7 +85,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
     
-     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
@@ -71,63 +94,73 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print("Go to Google Map")
         }
         
-        goToMap.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        goToMap.backgroundColor = #colorLiteral(red: 0.5606392622, green: 0.9218434691, blue: 0.3199045658, alpha: 1)
         goToMap.image = #imageLiteral(resourceName: "swipe-right.png")
         let confug = UISwipeActionsConfiguration(actions: [goToMap])
         confug.performsFirstActionWithFullSwipe = true
         return confug
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        switch manager.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse:
-            print("Allowed")
-        case .denied, .notDetermined, .restricted:
-            print("No access to location service")
-        default:
-            print("Unhandled case")
-        }
-        switch manager.accuracyAuthorization {
-        case .reducedAccuracy:
-            print("Low access")
-        case .fullAccuracy:
-            print("Full access")
-        default:
-            print("This shouldn't happen!")
-        }
-        guard let first = locations.first else { return }
-        long = first.coordinate.longitude
-        lati = first.coordinate.latitude
-        print("📍\(long), \(lati)")
-    }
+    //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    //        switch manager.authorizationStatus {
+    //        case .authorizedAlways, .authorizedWhenInUse:
+    //            print("Allowed")
+    //        case .denied, .notDetermined, .restricted:
+    //            print("No access to location service")
+    //        default:
+    //            print("Unhandled case")
+    //        }
+    //        switch manager.accuracyAuthorization {
+    //        case .reducedAccuracy:
+    //            print("Low access")
+    //        case .fullAccuracy:
+    //            print("Full access")
+    //        default:
+    //            print("This shouldn't happen!")
+    //        }
+    //    }
     
-    //
+    
     private func checkLocationService() {
         if CLLocationManager.locationServicesEnabled() {
             setupLocationManager()
-            //            checkLocationAuthorization(locationManager)
-        } else {
-            // Show alert telling user that location service is off
-            print("location service off")
-        }
+            switch locationManager.authorizationStatus {
+            case .authorizedAlways, .authorizedWhenInUse:
+                print("Allowed")
+            case .denied, .notDetermined, .restricted:
+                print("No access to location service")
+            default:
+                print("Unhandled case")
+            }
+            switch locationManager.accuracyAuthorization {
+            case .reducedAccuracy:
+                print("Low access")
+            case .fullAccuracy:
+                print("Full access")
+            default:
+                print("This shouldn't happen!")
+            }        } else {
+                // Show alert telling user that location service is off
+                print("location service off")
+            }
     }
     
     private func setupLocationManager() {
-        locationManager.delegate = self
+        //        locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        
     }
-    
-
-    
-    
-    
-    
-    
-    
     
     
 }
+
+// Todo
+// Decode JSON
+// Set jSON data to UIViews
+// Implement Swip feature ( if user swipe right, add library address to google map and start direction.
+// Work on better UI
+// Implement more detail ( user didTape tableView, show more detail about selected library, add call option )
+// see if I can fix swip frame etc
+
 

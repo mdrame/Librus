@@ -6,8 +6,13 @@
 //
 
 import Foundation
-// https://api.yelp.com/v3/businesses/search
+
+protocol Data {
+    func getLibrary(name: String, distance: String, address: String)
+}
 class Networking {
+    
+    var protocoleData: Data!
 
      let headers = [
         "Accept": "application/json",
@@ -15,7 +20,7 @@ class Networking {
         "Authorization": "Bearer o--wWs_IsfbVwOB-YYhhehTTFbSzOXMXJ3VuQCHhAGadHu2I3FTrrLvR3PBmtKL-AKswnlkkZOG9kFFN0br1DX1h6BebnLVWiljzJskfFOPjqkk1U8q_bYDwgF4NX3Yx"
     ]
     private var clientID: String =  "iU17mjNZTkTOJFiOozBnVA"
-    public func getLibrary(lng: Double, lat: Double) {
+    public func getLibrary(lng: Double, lat: Double, completedEscapingData: @escaping ([Business]?)->Void ) {
         let url = URL(string: "https://api.yelp.com/v3/businesses/search?term=library&latitude=\(lat)&longitude=\(lng)")!
         print("url➡️ \(url)")
         var request = URLRequest(url: url)
@@ -31,12 +36,25 @@ class Networking {
 //                   print("HTTPResponse")
 //                   return
 //               }
-               if let data = data, let string = String(data: data, encoding: .utf8) {
-                   DispatchQueue.main.async {
-                       print(string)
-                   }
-               }
-           }
-           task.resume()
-    }
+            if let jsonData = data {
+//                if let json = String(data: jsonData, encoding: .utf8) {
+//                      print("json", json)
+//                    }
+                let decoder = JSONDecoder()
+                do {
+                    let objectData = try? decoder.decode(Welcome.self, from: jsonData)
+//                    print("Library: \(objectData!.businesses)")
+                    let business = objectData?.businesses
+                    completedEscapingData(business)
+//                    print("Networking class WelcomeDataModel: \(objectData)"
+                }
+            } else {
+                print("There's nothing in the downloaded JSON File")
+            }
+            
+        }
+        task.resume()
 }
+
+}
+
