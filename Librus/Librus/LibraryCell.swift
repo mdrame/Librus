@@ -36,8 +36,12 @@ public class LibraryCell: UITableViewCell {
     let libraryNameLabel: UILabel = {
         let taskLabelLabel = UILabel()
         taskLabelLabel.text = "0.4 mils"
+        taskLabelLabel.numberOfLines = 4
+        taskLabelLabel.textAlignment = .center
+//        taskLabelLabel.adjustsFontForContentSizeCategory = true
+        taskLabelLabel.allowsDefaultTighteningForTruncation = true
         taskLabelLabel.translatesAutoresizingMaskIntoConstraints = false
-        taskLabelLabel.font = UIFont(name: "Arial", size: 30)
+        taskLabelLabel.font = UIFont(name: "Arial", size: 28)
         taskLabelLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         return taskLabelLabel
     }()
@@ -45,6 +49,7 @@ public class LibraryCell: UITableViewCell {
     let distanceLabel: UILabel = {
         let distanceLabel = UILabel()
         distanceLabel.text = "0.9 mils"
+        distanceLabel.contentMode = .center
         distanceLabel.translatesAutoresizingMaskIntoConstraints = false
         distanceLabel.font = UIFont(name: "Arial", size: 19)
         distanceLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -54,6 +59,7 @@ public class LibraryCell: UITableViewCell {
     let libraryAddressLabel: UILabel = {
         let libraryAddressLabel = UILabel()
         libraryAddressLabel.text = "20.5 mils"
+        libraryAddressLabel.contentMode = .center
         libraryAddressLabel.translatesAutoresizingMaskIntoConstraints = false
         libraryAddressLabel.font = UIFont(name: "Arial", size: 15)
         libraryAddressLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -62,12 +68,13 @@ public class LibraryCell: UITableViewCell {
     
     func constrains(view: UIView) {
         NSLayoutConstraint.activate([
-//            view.topAnchor.constraint(equalTo: view.topAnchor),
+//            view.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
 //            view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 //            view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 //            view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             view.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             view.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            view.widthAnchor.constraint(equalToConstant: contentView.frame.size.width / 2 + 90),
             distanceLabel.topAnchor.constraint(equalTo: view.bottomAnchor),
             distanceLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             libraryAddressLabel.topAnchor.constraint(equalTo: distanceLabel.bottomAnchor),
