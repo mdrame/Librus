@@ -16,13 +16,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private let locationManager = CLLocationManager()
     private var listOFLibraries: [Business] = []
     private let regionDistance: CLLocationDistance = 1000
+    private let colors: [UIColor] = [#colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1),#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1),#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1),#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1),#colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1),#colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1),#colorLiteral(red: 0.9328868985, green: 0.3016234636, blue: 0.9596740603, alpha: 1),#colorLiteral(red: 0.9438698888, green: 0.8653196692, blue: 0.2051090002, alpha: 1),#colorLiteral(red: 0, green: 0.8713548779, blue: 0.943228364, alpha: 1),#colorLiteral(red: 1, green: 0.2480090559, blue: 0.353962481, alpha: 1),#colorLiteral(red: 0.2920596004, green: 0.2827538252, blue: 0.2876347601, alpha: 1)]
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         checkLocationService()
         view.addSubview(libraryTableView)
         libraryTableviewConstrain()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,8 +74,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         libraryCell?.selectionStyle = .none
         let business = listOFLibraries[indexPath.row]
        
-        DispatchQueue.main.async {
-            libraryCell?.configCellViews(with: business )
+        DispatchQueue.main.async { [self] in
+            libraryCell?.configCellViews(with: business, background: colors )
         }
         return libraryCell!
     }

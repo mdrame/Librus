@@ -12,7 +12,7 @@ public class LibraryCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         // Initialization code
-        contentView.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
+        
         contentView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         contentView.layer.shadowOpacity = 0.9
         contentView.layer.shadowOffset = .zero
@@ -83,10 +83,12 @@ public class LibraryCell: UITableViewCell {
         ])
     }
     
-    func configCellViews(with data: Business) {
+    func configCellViews(with data: Business, background: [UIColor]) {
         libraryNameLabel.text = data.name
-        distanceLabel.text = String("Long: \(data.coordinates.longitude), Lati: \(data.coordinates.latitude)")
+        distanceLabel.text = String("\(Float16(data.distance)) Miles")
         libraryAddressLabel.text = data.location.address1
+        var randomColor = Int.random(in: 0...10)
+        contentView.backgroundColor = background[randomColor]
     }
     
 }

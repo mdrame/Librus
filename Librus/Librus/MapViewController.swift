@@ -19,7 +19,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         // Do any additional setup after loading the view.
         checkLocationService()
         
-        
+        let testCord = CLLocationCoordinate2D(latitude: 53.0761693, longitude: -0.8092339)
         var sourceCordinate = (locationManager.location?.coordinate)!
         mapit(fromCordinate: sourceCordinate, toCordinate: destinationCordinate )
     }
