@@ -20,17 +20,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        checkLocationService()
         view.addSubview(libraryTableView)
         libraryTableviewConstrain()
+        
+        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    
+    
+    func run() {
         let regionDistance = 1000
-        let long = (locationManager.location?.coordinate.longitude)!
-        let lati = (locationManager.location?.coordinate.latitude)!
+        let long = (locationManager.location?.coordinate.longitude)
+        let lati = (locationManager.location?.coordinate.latitude)
         print(" 📍 - Long: \(long), 🗺 - Lat: \(lati)")
-        networking.getLibrary(lng: Double(long), lat: Double(lati)) { [weak self] (welcomObjectData) in
+        networking.getLibrary(lng: Double(long ?? 40.741895), lat: Double(lati ?? -73.989308)) { [weak self] (welcomObjectData) in
             DispatchQueue.main.async {
 //                print(" WelcomeDataModel: \(welcomObjectData)")
                 guard let wd = welcomObjectData else  {
@@ -41,7 +44,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
            
         }
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        checkLocationService()
     }
     
     private  lazy var libraryTableView: UITableView = {
@@ -49,8 +55,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         libraryTableView.translatesAutoresizingMaskIntoConstraints = false
         libraryTableView.register(LibraryCell.self, forCellReuseIdentifier: LibraryCell.cellIdenfier)
         libraryTableView.separatorStyle = .none
-        //        libraryTableView.isSpringLoaded = true
-        //        libraryTableView.backgroundColor = #colorLiteral(red: 0.1318426728, green: 0.1439217925, blue: 0.158605963, alpha: 1)
         return libraryTableView
     }()
     
@@ -139,6 +143,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             switch locationManager.authorizationStatus {
             case .authorizedAlways, .authorizedWhenInUse:
                 print("Allowed")
+                run()
             case .denied, .notDetermined, .restricted:
                 print("No access to location service")
             default:
