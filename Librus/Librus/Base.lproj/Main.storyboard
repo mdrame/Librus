@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pc5-er-jCF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AjO-yU-tJD">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -11,15 +11,67 @@
         <!--View Controller-->
         <scene sceneID="89F-Ed-utL">
             <objects>
-                <viewController id="pc5-er-jCF" customClass="ViewController" customModule="Librus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeViewController" id="pc5-er-jCF" customClass="ViewController" customModule="Librus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bzT-3w-g1j">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="LQ2-62-ljO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="bf3-Gr-7Zg"/>
+                    <connections>
+                        <segue destination="RO2-JC-ejn" kind="show" id="P2v-6P-4DN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wKM-gw-nAh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="423.1884057971015" y="-74.330357142857139"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="8KQ-3V-4dS">
+            <objects>
+                <viewController storyboardIdentifier="mapKitViewStoryBoard" id="RO2-JC-ejn" customClass="MapViewController" customModule="Librus" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IMb-jN-XSC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yg3-3j-6is">
+                                <rect key="frame" x="0.0" y="0.0" width="429" height="896"/>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="HjJ-op-jYQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="yg3-3j-6is" secondAttribute="trailing" constant="-35" id="8F1-rO-0KC"/>
+                            <constraint firstItem="yg3-3j-6is" firstAttribute="top" secondItem="IMb-jN-XSC" secondAttribute="topMargin" constant="-88" id="mfY-PU-bs4"/>
+                            <constraint firstItem="yg3-3j-6is" firstAttribute="centerY" secondItem="IMb-jN-XSC" secondAttribute="centerY" id="yRC-qq-Kge"/>
+                            <constraint firstItem="yg3-3j-6is" firstAttribute="leading" secondItem="HjJ-op-jYQ" secondAttribute="leading" id="ztL-8b-anH"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="lcX-wP-FvY"/>
+                    <connections>
+                        <outlet property="mapKitView" destination="yg3-3j-6is" id="ile-vC-ZBW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ebA-Sv-jkS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1250.7246376811595" y="-74.330357142857139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="okF-eQ-GX2">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AjO-yU-tJD" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kz3-K6-LI1">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="pc5-er-jCF" kind="relationship" relationship="rootViewController" id="p3q-pW-ixl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2dG-aT-dCA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-486.95652173913049" y="-74.330357142857139"/>
         </scene>

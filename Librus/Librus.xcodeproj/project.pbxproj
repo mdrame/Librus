@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77530EAD2609678D001FC20E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77530EAC2609678D001FC20E /* MapViewController.swift */; };
 		77F66D2B2600053B00120F3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F66D2A2600053B00120F3E /* AppDelegate.swift */; };
 		77F66D2D2600053B00120F3E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F66D2C2600053B00120F3E /* SceneDelegate.swift */; };
 		77F66D2F2600053B00120F3E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F66D2E2600053B00120F3E /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		77530EAC2609678D001FC20E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		77F66D272600053B00120F3E /* Librus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Librus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77F66D2A2600053B00120F3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77F66D2C2600053B00120F3E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 				77F66D2A2600053B00120F3E /* AppDelegate.swift */,
 				77F66D2C2600053B00120F3E /* SceneDelegate.swift */,
 				77F66D2E2600053B00120F3E /* ViewController.swift */,
+				77530EAC2609678D001FC20E /* MapViewController.swift */,
 				77F66D3F2600798600120F3E /* LibraryCell.swift */,
 				77F66D422600905A00120F3E /* Networking.swift */,
 				77F66D48260305E100120F3E /* LibraryObject.swift */,
@@ -156,6 +159,7 @@
 				77F66D2B2600053B00120F3E /* AppDelegate.swift in Sources */,
 				77F66D2D2600053B00120F3E /* SceneDelegate.swift in Sources */,
 				77F66D49260305E100120F3E /* LibraryObject.swift in Sources */,
+				77530EAD2609678D001FC20E /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

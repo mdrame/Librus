@@ -85,7 +85,7 @@ public class LibraryCell: UITableViewCell {
     
     func configCellViews(with data: Business) {
         libraryNameLabel.text = data.name
-        distanceLabel.text = String(data.distance)
+        distanceLabel.text = String("Long: \(data.coordinates.longitude), Lati: \(data.coordinates.latitude)")
         libraryAddressLabel.text = data.location.address1
     }
     

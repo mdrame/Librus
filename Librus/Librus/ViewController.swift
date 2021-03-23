@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import MapKit
 
 
 
@@ -14,6 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private var networking: Networking = Networking()
     private let locationManager = CLLocationManager()
     private var listOFLibraries: [Business] = []
+    private let regionDistance: CLLocationDistance = 1000
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -24,17 +26,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let long = Double((locationManager.location?.coordinate.longitude)!)
-        let lati = Double((locationManager.location?.coordinate.latitude)!)
+        let regionDistance = 1000
+        let long = (locationManager.location?.coordinate.longitude)!
+        let lati = (locationManager.location?.coordinate.latitude)!
         print(" 📍 - Long: \(long), 🗺 - Lat: \(lati)")
-        networking.getLibrary(lng: long, lat: lati) { [weak self] (welcomObjectData) in
+        networking.getLibrary(lng: Double(long), lat: Double(lati)) { [weak self] (welcomObjectData) in
             DispatchQueue.main.async {
 //                print(" WelcomeDataModel: \(welcomObjectData)")
                 guard let wd = welcomObjectData else  {
                     print("No Data ")
                     return }
                 self?.listOFLibraries = wd
-                print("Array of business: \(self?.listOFLibraries[0].name)")
                 self!.libraryTableView.reloadData()
             }
            
@@ -90,8 +92,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let goToMap = UIContextualAction(style: .destructive, title: "") { (action, view, nil) in
+        let goToMap = UIContextualAction(style: .destructive, title: "") { [self] (action, view, nil) in
             print("Go to Google Map")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "mapKitViewStoryBoard") as! MapViewController
+            let destinationCordinate = listOFLibraries[indexPath.row].coordinates
+            let lon = destinationCordinate.longitude
+            let lat = destinationCordinate.latitude
+            let destinationCord: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+            vc.destinationCordinate = destinationCord
+            print("")
+            self.navigationController?.pushViewController(vc,
+             animated: true)
         }
         
         goToMap.backgroundColor = #colorLiteral(red: 0.5606392622, green: 0.9218434691, blue: 0.3199045658, alpha: 1)
